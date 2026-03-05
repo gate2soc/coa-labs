@@ -17,10 +17,12 @@ $$S(t+1) = f(S(t), X(t))$$
 
 Outputs:
 
-$$Y(t)=\begin{cases}
- g(S(t)) & \text{Moore}\\
- g(S(t),X(t)) & \text{Mealy}
-\end{cases}$$
+$$
+Y(t)=\begin{cases}
+g(S(t)), & \text{Moore FSM}\\
+g(S(t), X(t)), & \text{Mealy FSM}
+\end{cases}
+$$
 
 A Moore FSM output depends only on state; a Mealy FSM output depends on both state and input.
 
