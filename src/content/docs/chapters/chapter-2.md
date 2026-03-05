@@ -109,7 +109,7 @@ All circuits in this experiment must be built **only with basic gates** (do not 
    - Place 6 input pins and label them: D0, D1, D2, D3, S0, S1.
    - Place 1 output pin labeled **Y**.
 2. **Generate inverted select signals**
-   - Place two NOT gates to generate \(\overline{S_0}\) and \(\overline{S_1}\).
+   - Place two NOT gates to generate $\overline{S_0}$ and $\overline{S_1}$.
 3. **Build the four selection paths**
    - Place four AND gates and set each to **3 inputs**.
    - Label the AND outputs as T0…T3.
@@ -124,10 +124,10 @@ Selection-path wiring reference:
 
 | Path | Data input | Select condition | Meaning |
 |---|---|---|---|
-| T0 | D0 | \(\overline{S_1}\,\overline{S_0}\) | select D0 when S1S0 = 00 |
-| T1 | D1 | \(\overline{S_1}S_0\) | select D1 when S1S0 = 01 |
-| T2 | D2 | \(S_1\overline{S_0}\) | select D2 when S1S0 = 10 |
-| T3 | D3 | \(S_1S_0\) | select D3 when S1S0 = 11 |
+| T0 | D0 | $\overline{S_1}\,\overline{S_0}$ | select D0 when S1S0 = 00 |
+| T1 | D1 | $\overline{S_1}S_0$ | select D1 when S1S0 = 01 |
+| T2 | D2 | $S_1\overline{S_0}$ | select D2 when S1S0 = 10 |
+| T3 | D3 | $S_1S_0$ | select D3 when S1S0 = 11 |
 
 5. **Verify by truth table**
    - Fix inputs (example): D0=0, D1=1, D2=0, D3=1.
@@ -140,7 +140,7 @@ Selection-path wiring reference:
    - Place input pins A0 and A1.
    - Place output pins Y0, Y1, Y2, Y3 (set them as outputs).
 2. **Generate inverted inputs**
-   - Use two NOT gates to generate \(\overline{A_0}\) and \(\overline{A_1}\).
+   - Use two NOT gates to generate $\overline{A_0}$ and $\overline{A_1}$.
 3. **Build the four output paths**
    - Place four AND gates.
    - Wire each AND gate according to the table below.
@@ -153,10 +153,10 @@ Output-path wiring reference:
 
 | Output | AND inputs | Input combination | Meaning |
 |---|---|---|---|
-| Y0 | \(\overline{A_1},\overline{A_0}\) | A1A0 = 00 | assert Y0 |
-| Y1 | \(\overline{A_1},A_0\) | A1A0 = 01 | assert Y1 |
-| Y2 | \(A_1,\overline{A_0}\) | A1A0 = 10 | assert Y2 |
-| Y3 | \(A_1,A_0\) | A1A0 = 11 | assert Y3 |
+| Y0 | $\overline{A_1},\overline{A_0}$ | A1A0 = 00 | assert Y0 |
+| Y1 | $\overline{A_1},A_0$ | A1A0 = 01 | assert Y1 |
+| Y2 | $A_1,\overline{A_0}$ | A1A0 = 10 | assert Y2 |
+| Y3 | $A_1,A_0$ | A1A0 = 11 | assert Y3 |
 
 5. **Verify by truth table**
    - Test inputs 00, 01, 10, 11.
@@ -171,9 +171,9 @@ Output-path wiring reference:
 
 Implement a NAND function using **only multiplexers**:
 
-- Target: \(F = \overline{A \cdot B}\)
+- Target: $F = \overline{A \cdot B}$
 - Constraints: do **not** build a NAND by chaining an AND + NOT; you may use constant 0/1 sources.
-- Hint: for a 2-to-1 MUX, \(Y = \overline{S}D_0 + SD_1\). Try using **B** as **S**, and choose D0/D1 based on the NAND truth table.
+- Hint: for a 2-to-1 MUX, $Y = \overline{S}D_0 + SD_1$. Try using **B** as **S**, and choose D0/D1 based on the NAND truth table.
 
 ## Adders
 
@@ -183,8 +183,8 @@ Addition is one of the most fundamental operations in computers. Integer arithme
 
 A **half adder** adds two 1-bit numbers without a carry-in.
 
-- Sum: \(S = A \oplus B\)
-- Carry: \(C = A \cdot B\)
+- Sum: $S = A \oplus B$
+- Carry: $C = A \cdot B$
 
 Truth table:
 
@@ -203,9 +203,9 @@ A half adder cannot directly build multi-bit addition because it lacks a carry-i
 
 ### Full adder
 
-A **full adder** adds A and B with a carry-in \(C_{in}\):
+A **full adder** adds A and B with a carry-in $C_{in}$:
 
-- Sum: \(S = A \oplus B \oplus C_{in}\)
+- Sum: $S = A \oplus B \oplus C_{in}$
 - Carry-out:
 
 $$C_{out} = A\cdot B + A\cdot C_{in} + B\cdot C_{in}$$
@@ -217,7 +217,7 @@ Symbols / construction idea:
 
 ### Ripple-carry adder
 
-Chaining \(n\) full adders forms an \(n\)-bit adder. The carry-out of each bit feeds the next bit’s carry-in. With \(C_{in}=0\) at the least significant bit, this is a **ripple-carry adder**.
+Chaining $n$ full adders forms an $n$-bit adder. The carry-out of each bit feeds the next bit’s carry-in. With $C_{in}=0$ at the least significant bit, this is a **ripple-carry adder**.
 
 ![4-bit ripple-carry adder](/images/chap02/ripple-adder.png)
 
@@ -239,8 +239,8 @@ Ripple-carry adders are simple and great for teaching, but carry propagation mak
 
 1. Place input pins A and B.
 2. Place output pins S and C.
-3. Build \(S = A\oplus B\) with one XOR gate.
-4. Build \(C = A\cdot B\) with one AND gate.
+3. Build $S = A\oplus B$ with one XOR gate.
+4. Build $C = A\cdot B$ with one AND gate.
 
 ![1-bit half adder circuit](/images/chap02/adder-1.png)
 
@@ -253,21 +253,21 @@ Test (A,B) = 00, 01, 10, 11 and confirm (S,C) matches the truth table.
 ![Rename circuit](/images/chap02/circuit-name.png)
 
 2. Create a new circuit named **FullAdder** and set it as the main circuit.
-3. Place inputs A, B, and \(C_{in}\); place outputs S and \(C_{out}\).
+3. Place inputs A, B, and $C_{in}$; place outputs S and $C_{out}$.
 4. Place **two HalfAdder** subcircuits.
-   - First HalfAdder: inputs A, B; outputs \(S_1\), \(C_1\)
-   - Second HalfAdder: inputs \(S_1\), \(C_{in}\); outputs S, \(C_2\)
-5. Use an OR gate to compute \(C_{out} = C_1 + C_2\).
+   - First HalfAdder: inputs A, B; outputs $S_1$, $C_1$
+   - Second HalfAdder: inputs $S_1$, $C_{in}$; outputs S, $C_2$
+5. Use an OR gate to compute $C_{out} = C_1 + C_2$.
 
 ![1-bit full adder circuit](/images/chap02/adder-2.png)
 
-Test all combinations (A,B,\(C_{in}\)) from 000 to 111.
+Test all combinations (A,B,$C_{in}$) from 000 to 111.
 
 #### Task 3: 4-bit ripple-carry adder
 
 1. Create a new main circuit named **RippleAdder4**.
-2. Place 4-bit inputs A[3:0], B[3:0] and 1-bit input \(C_{in}\).
-3. Place 4-bit output S[3:0] and 1-bit output \(C_{out}\).
+2. Place 4-bit inputs A[3:0], B[3:0] and 1-bit input $C_{in}$.
+3. Place 4-bit output S[3:0] and 1-bit output $C_{out}$.
 4. Use splitters to break out bits A0…A3, B0…B3, S0…S3.
 5. Place four FullAdder blocks and chain their carries.
 
@@ -275,8 +275,8 @@ Test all combinations (A,B,\(C_{in}\)) from 000 to 111.
 
 Functional checks (example test vectors):
 
-- No carry chain: A=0010, B=0001 → S=0011, \(C_{out}=0\)
-- Multi-bit carry: A=1111, B=0001 → S=0000, \(C_{out}=1\)
+- No carry chain: A=0010, B=0001 → S=0011, $C_{out}=0$
+- Multi-bit carry: A=1111, B=0001 → S=0000, $C_{out}=1$
 - Random vectors: verify against hand calculation
 
 Observe carry propagation using an input that causes a continuous carry chain.
@@ -296,10 +296,10 @@ Observe carry propagation using an input that causes a continuous carry chain.
 
 The ALU is the core combinational block in a CPU datapath. In this manual, you will build an ALU supporting four operations:
 
-- Two’s-complement add: \(A + B\)
-- Two’s-complement subtract: \(A - B\)
-- Bitwise AND: \(A \cdot B\)
-- Bitwise OR: \(A\,|\,B\)
+- Two’s-complement add: $A + B$
+- Two’s-complement subtract: $A - B$
+- Bitwise AND: $A \cdot B$
+- Bitwise OR: $A\,|\,B$
 
 Design idea:
 
@@ -311,12 +311,12 @@ Design idea:
 
 #### Objectives
 
-- Understand the two’s-complement identity: \(A-B = A + (-B)\).
+- Understand the two’s-complement identity: $A-B = A + (-B)$.
 - Learn how to reuse an adder to implement subtraction.
 
 #### Principles
 
-In two’s-complement, negation is \(-B = \overline{B} + 1\). Therefore:
+In two’s-complement, negation is $-B = \overline{B} + 1$. Therefore:
 
 $$A - B = A + \overline{B} + 1$$
 
@@ -330,8 +330,8 @@ So if we conditionally invert B and conditionally add 1, we can implement subtra
 
 Use XOR’s properties:
 
-- \(B \oplus 0 = B\)
-- \(B \oplus 1 = \overline{B}\)
+- $B \oplus 0 = B$
+- $B \oplus 1 = \overline{B}$
 
 Let OP=0 mean add, OP=1 mean subtract.
 
@@ -352,7 +352,7 @@ Verify behavior for OP=0 (no inversion) and OP=1 (inversion).
 4. Wire:
    - adder operand 1 ← A[7:0]
    - adder operand 2 ← (B[7:0] XOR OP)
-   - adder \(C_{in}\) ← OP
+   - adder $C_{in}$ ← OP
 
 ![Adder/subtractor](/images/chap02/sub-2.png)
 
@@ -379,11 +379,11 @@ $$S = A + (B\oplus OP) + OP$$
 
 #### Questions
 
-1. Give a unified expression for S (hint: consider the XOR and \(C_{in}\) together). Explain why it becomes \(A+B\) when OP=0 and \(A-B\) when OP=1.
+1. Give a unified expression for S (hint: consider the XOR and $C_{in}$ together). Explain why it becomes $A+B$ when OP=0 and $A-B$ when OP=1.
 2. Why should the bit extender use **sign extension**?
 3. Can the adder carry-out be used as an overflow indicator?
-   - For **unsigned** addition, is \(C_{out}\) a correct overflow signal? Why?
-   - For **signed** two’s-complement add/sub, is \(C_{out}\) still reliable? If not, how do you detect signed overflow?
+   - For **unsigned** addition, is $C_{out}$ a correct overflow signal? Why?
+   - For **signed** two’s-complement add/sub, is $C_{out}$ still reliable? If not, how do you detect signed overflow?
 
 #### Extension
 
