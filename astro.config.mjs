@@ -53,6 +53,20 @@ export default defineConfig({
 						},
 					],
 				},
+				{
+					label: 'Part 2 - Processor Architecture',
+					items: [
+						{
+							label: 'Chapter 4 — Generating Assembly Programs',
+							items: [
+								{ label: 'Overview', link: '/chapters/chapter-4/' },
+								{ label: 'Toolchain: C to Bare-Metal Assembly', link: '/chapters/chapter-4/toolchain/' },
+								{ label: 'Common Assembly Structure', link: '/chapters/chapter-4/program-structure/' },
+								{ label: 'Summary', link: '/chapters/chapter-4/summary/' },
+							],
+						},
+					],
+				},
 			],
 		}),
 	],
