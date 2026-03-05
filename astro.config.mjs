@@ -41,6 +41,16 @@ export default defineConfig({
 								{ label: 'Summary', link: '/chapters/chapter-2/summary/' },
 							],
 						},
+						{
+							label: 'Chapter 3 — Sequential Logic Design',
+							items: [
+								{ label: 'Overview', link: '/chapters/chapter-3/' },
+								{ label: 'Latches and Flip-Flops', link: '/chapters/chapter-3/latches-flip-flops/' },
+								{ label: 'Register File', link: '/chapters/chapter-3/register-file/' },
+								{ label: 'Finite State Machines (FSM)', link: '/chapters/chapter-3/fsm/' },
+								{ label: 'Summary', link: '/chapters/chapter-3/summary/' },
+							],
+						},
 					],
 				},
 			],
