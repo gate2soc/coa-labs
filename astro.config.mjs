@@ -113,6 +113,22 @@ export default defineConfig({
 						},
 					],
 				},
+				{
+					label: 'Part 4 - I/O Systems',
+					items: [
+						{
+							label: 'Chapter 9 — I/O Interfaces',
+							items: [
+								{ label: 'Overview', link: '/chapters/chapter-9/' },
+								{ label: 'Memory-Mapped I/O (MMIO)', link: '/chapters/chapter-9/mmio/' },
+								{ label: 'Polling I/O', link: '/chapters/chapter-9/polling/' },
+								{ label: 'Interrupt-Driven I/O', link: '/chapters/chapter-9/interrupts/' },
+								{ label: 'DMA', link: '/chapters/chapter-9/dma/' },
+								{ label: 'Summary', link: '/chapters/chapter-9/summary/' },
+							],
+						},
+					],
+				},
 			],
 		}),
 	],
