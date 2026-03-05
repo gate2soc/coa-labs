@@ -129,6 +129,13 @@ export default defineConfig({
 						},
 					],
 				},
+				{
+					label: 'Appendices',
+					items: [
+						{ label: 'Appendix A — RISC-V Instruction Card (RV32IM)', link: '/appendices/rv32im-instruction-card/' },
+						{ label: 'Appendix B — Full Lab Source Code', link: '/appendices/lab-source-code/' },
+					],
+				},
 			],
 		}),
 	],
