@@ -87,6 +87,21 @@ export default defineConfig({
 						},
 					],
 				},
+				{
+					label: 'Part 3 - Memory Systems',
+					items: [
+						{
+							label: 'Chapter 7 — Memory Expansion & Error Checking',
+							items: [
+								{ label: 'Overview', link: '/chapters/chapter-7/' },
+								{ label: 'Bit-Width Expansion (Parallel Chips)', link: '/chapters/chapter-7/bit-width-expansion/' },
+								{ label: 'Capacity Expansion (Address Mapping & CS)', link: '/chapters/chapter-7/address-mapping-chip-select/' },
+								{ label: 'Hamming Code (ECC)', link: '/chapters/chapter-7/hamming-code/' },
+								{ label: 'Summary', link: '/chapters/chapter-7/summary/' },
+							],
+						},
+					],
+				},
 			],
 		}),
 	],
