@@ -1,0 +1,20 @@
+/* Center figures/images */
+
+/* Starlight wraps content in `.sl-markdown-content` */
+.sl-markdown-content img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Center tables */
+.sl-markdown-content table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Center our caption paragraphs like: *Figure X.Y: ...* */
+.sl-markdown-content p > em:only-child {
+  display: block;
+  text-align: center;
+}
