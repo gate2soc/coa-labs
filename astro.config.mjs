@@ -65,6 +65,16 @@ export default defineConfig({
 								{ label: 'Summary', link: '/chapters/chapter-4/summary/' },
 							],
 						},
+						{
+							label: 'Chapter 5 — Single-Cycle CPU: Design & Implementation',
+							items: [
+								{ label: 'Overview', link: '/chapters/chapter-5/' },
+								{ label: 'Datapath Construction', link: '/chapters/chapter-5/datapath/' },
+								{ label: 'Control Unit Design', link: '/chapters/chapter-5/control-unit/' },
+								{ label: 'System Integration & Testing', link: '/chapters/chapter-5/cpu-integration/' },
+								{ label: 'Summary', link: '/chapters/chapter-5/summary/' },
+							],
+						},
 					],
 				},
 			],
