@@ -100,6 +100,17 @@ export default defineConfig({
 								{ label: 'Summary', link: '/chapters/chapter-7/summary/' },
 							],
 						},
+						{
+							label: 'Chapter 8 — Cache',
+							items: [
+								{ label: 'Overview', link: '/chapters/chapter-8/' },
+								{ label: 'Mapping Strategies (Basics)', link: '/chapters/chapter-8/mapping-basics/' },
+								{ label: 'Ripes Cache View & Config', link: '/chapters/chapter-8/ripes-cache-view/' },
+								{ label: 'Replacement Policy', link: '/chapters/chapter-8/replacement-policy/' },
+								{ label: 'Write Policy', link: '/chapters/chapter-8/write-policy/' },
+								{ label: 'Summary', link: '/chapters/chapter-8/summary/' },
+							],
+						},
 					],
 				},
 			],
