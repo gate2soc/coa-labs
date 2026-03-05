@@ -18,6 +18,13 @@ export default defineConfig({
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/REPLACE_ME/coa-online' }],
 			sidebar: [
 				{
+					label: 'Front Matter',
+					items: [
+						{ label: 'Preface', link: '/preface/' },
+						{ label: 'References', link: '/references/' },
+					],
+				},
+				{
 					label: 'Part 1 - Digital Logic',
 					items: [
 						{
@@ -135,6 +142,10 @@ export default defineConfig({
 						{ label: 'Appendix A — RISC-V Instruction Card (RV32IM)', link: '/appendices/rv32im-instruction-card/' },
 						{ label: 'Appendix B — Full Lab Source Code', link: '/appendices/lab-source-code/' },
 					],
+				},
+				{
+					label: 'Back Matter',
+					items: [{ label: 'Epilogue', link: '/epilogue/' }],
 				},
 			],
 		}),

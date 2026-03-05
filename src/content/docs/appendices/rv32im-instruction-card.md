@@ -133,3 +133,56 @@ Branch targets are PC-relative; immediates are 2-byte aligned (range ≈ ±4 KiB
 | CSRRWI | I | `CSRRWI rd, csr, imm` | immediate write |
 | CSRRSI | I | `CSRRSI rd, csr, imm` | immediate set bits |
 | CSRRCI | I | `CSRRCI rd, csr, imm` | immediate clear bits |
+
+
+## Counter read pseudo-instructions
+
+These pseudo-instructions expand to reading a specific CSR (conceptually `CSRRS rd, csr, x0`).
+
+<a id="tab-instr-counter"></a>
+
+| Pseudo | CSR | Syntax | Description |
+|---|---|---|---|
+| RDCYCLE | `cycle` | `RDCYCLE rd` | read low 32 bits of cycle counter |
+| RDCYCLEH | `cycleh` | `RDCYCLEH rd` | read high 32 bits of cycle counter |
+| RDTIME | `time` | `RDTIME rd` | read low 32 bits of real-time counter |
+| RDTIMEH | `timeh` | `RDTIMEH rd` | read high 32 bits of real-time counter |
+| RDINSTRET | `instret` | `RDINSTRET rd` | read low 32 bits of retired-instruction counter |
+| RDINSTRETH | `instreth` | `RDINSTRETH rd` | read high 32 bits of retired-instruction counter |
+
+*Table A.2: Counter read pseudo-instructions.*
+
+## Common CSR registers (RV32)
+
+CSR addresses encode access permissions and the minimum required privilege level. The list below includes the most commonly used CSRs in RV32 implementations.
+
+<a id="tab-common-csrs"></a>
+
+| Name | Address | Access | Purpose |
+|---|---:|---|---|
+| *(Machine mode status & control)* ||||
+| `mstatus` | 0x300 | MRW | global machine status (MIE/MPIE/MPP, etc.) |
+| `misa` | 0x301 | MRW | ISA description (XLEN and extension bits) |
+| `mie` | 0x304 | MRW | machine interrupt enables (MEIE/MTIE/MSIE) |
+| `mtvec` | 0x305 | MRW | trap vector base and mode (Direct/Vectored) |
+| *(Machine mode trap handling)* ||||
+| `mscratch` | 0x340 | MRW | scratch register for trap handlers |
+| `mepc` | 0x341 | MRW | exception PC (return target for `MRET`) |
+| `mcause` | 0x342 | MRW | trap cause (MSB=1 indicates interrupt) |
+| `mtval` | 0x343 | MRW | trap value (bad address / illegal instruction bits, etc.) |
+| `mip` | 0x344 | MRW | machine interrupt pending (reflects interrupt signals) |
+| *(Machine performance counters)* ||||
+| `mcycle` | 0xB00 | MRW | cycle counter low 32 bits |
+| `minstret` | 0xB02 | MRW | retired instruction counter low 32 bits |
+| `mcycleh` | 0xB80 | MRW | cycle counter high 32 bits |
+| `minstreth` | 0xB82 | MRW | retired instruction counter high 32 bits |
+| *(User-mode read-only counters)* ||||
+| `cycle` | 0xC00 | URO | user view of `mcycle` low 32 bits |
+| `time` | 0xC01 | URO | real-time counter low 32 bits (platform-defined) |
+| `instret` | 0xC02 | URO | retired instruction counter low 32 bits |
+| `cycleh` | 0xC80 | URO | cycle counter high 32 bits |
+| `timeh` | 0xC81 | URO | real-time counter high 32 bits |
+| `instreth` | 0xC82 | URO | retired instruction counter high 32 bits |
+
+*Table A.3: Common CSR registers.*
+
