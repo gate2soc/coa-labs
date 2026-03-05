@@ -23,6 +23,15 @@ export default defineConfig({
 								{ label: 'Running Your First Program (Ripes)', link: '/chapters/chapter-1/#running-your-first-program-in-ripes' },
 							],
 						},
+						{
+							label: 'Chapter 2 — Combinational Logic Design',
+							items: [
+								{ label: 'Overview', link: '/chapters/chapter-2/' },
+								{ label: 'Multiplexers and Decoders', link: '/chapters/chapter-2/#multiplexers-and-decoders' },
+								{ label: 'Adders', link: '/chapters/chapter-2/#adders' },
+								{ label: 'Arithmetic Logic Unit (ALU)', link: '/chapters/chapter-2/#arithmetic-logic-unit-alu' },
+							],
+						},
 					],
 				},
 			],
