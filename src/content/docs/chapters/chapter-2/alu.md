@@ -112,14 +112,14 @@ Build an ALU that supports the four operations above. The key structure is:
 - compute all candidate results in parallel
 - select one result using a MUX controlled by ALUCtrl
 
-## Inputs and outputs
+### Inputs and outputs
 
 - Inputs: A[7:0], B[7:0] (interpreted as signed two’s-complement)
 - Control: ALUCtrl[1:0]
 - Output: Y[7:0]
 - Flag: Z (1 if Y == 0)
 
-## Design hints
+### Design hints
 
 1. Many gates (including MUXes) can be configured to operate on **multi-bit buses** in Logisim Evolution.
 2. Arithmetic and bitwise logic can be computed in parallel.
