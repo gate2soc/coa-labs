@@ -18,7 +18,7 @@ export default defineConfig({
 		starlight({
 			title: 'Computer Organization & Architecture Lab Manual',
 			customCss: ['katex/dist/katex.min.css', '/src/custom.css'],
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/REPLACE_ME/coa-online' }],
+			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/gate2soc/coa-labs/' }],
 			sidebar: [
 				{
 					label: 'Front Matter',
