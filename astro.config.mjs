@@ -12,7 +12,19 @@ export default defineConfig({
 			sidebar: [
 				{
 					label: 'Chapters',
-					autogenerate: { directory: 'chapters' },
+					items: [
+						{
+							label: 'Chapter 1 — Getting Started',
+							items: [
+								{ label: 'Chapter page', link: '/chapters/chapter-1/' },
+								{ label: 'Installing and Using Logisim Evolution', link: '/chapters/chapter-1/#installing-and-using-logisim-evolution' },
+								{ label: 'Building Your First Circuit (Logisim)', link: '/chapters/chapter-1/#building-your-first-circuit-in-logisim-evolution' },
+								{ label: 'Installing and Using Ripes', link: '/chapters/chapter-1/#installing-and-using-ripes' },
+								{ label: 'Running Your First Program (Ripes)', link: '/chapters/chapter-1/#running-your-first-program-in-ripes' },
+								{ label: 'Summary', link: '/chapters/chapter-1/#summary' },
+							],
+						},
+					],
 				},
 			],
 		}),
