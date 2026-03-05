@@ -19,10 +19,7 @@ export default defineConfig({
 			sidebar: [
 				{
 					label: 'Front Matter',
-					items: [
-						{ label: 'Preface', link: '/preface/' },
-						{ label: 'References', link: '/references/' },
-					],
+					items: [{ label: 'Preface', link: '/preface/' }],
 				},
 				{
 					label: 'Part 1 - Digital Logic',
@@ -145,7 +142,10 @@ export default defineConfig({
 				},
 				{
 					label: 'Back Matter',
-					items: [{ label: 'Epilogue', link: '/epilogue/' }],
+					items: [
+						{ label: 'References', link: '/references/' },
+						{ label: 'Epilogue', link: '/epilogue/' },
+					],
 				},
 			],
 		}),
