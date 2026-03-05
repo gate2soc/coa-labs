@@ -75,6 +75,16 @@ export default defineConfig({
 								{ label: 'Summary', link: '/chapters/chapter-5/summary/' },
 							],
 						},
+						{
+							label: 'Chapter 6 — Pipeline Analysis (Ripes)',
+							items: [
+								{ label: 'Overview', link: '/chapters/chapter-6/' },
+								{ label: 'Ripes Processor View', link: '/chapters/chapter-6/ripes-view/' },
+								{ label: 'Five-Stage Pipeline', link: '/chapters/chapter-6/five-stage-pipeline/' },
+								{ label: 'Pipeline Hazards', link: '/chapters/chapter-6/hazards/' },
+								{ label: 'Summary', link: '/chapters/chapter-6/summary/' },
+							],
+						},
 					],
 				},
 			],
