@@ -23,22 +23,22 @@ Provides:
 
 #include <stdint.h>
 
-/* ========= 外设与 PLIC 基址 ========= */
+/* ========= Peripheral and PLIC base addresses ========= */
 #define JTAG_UART_BASE 0x60000u
 #define PLIC_BASE      0xc000000u
 
 #define UART_DATA (*(volatile uint32_t *)(JTAG_UART_BASE + 0u))
 #define UART_CTRL (*(volatile uint32_t *)(JTAG_UART_BASE + 4u))
 
-#define UART_CTRL_RE    (1u << 0)   /* 读中断使能 */
-#define UART_DATA_VALID (1u << 15)  /* Data 寄存器读取有效位 */
+#define UART_CTRL_RE    (1u << 0)   /* RX interrupt enable */
+#define UART_DATA_VALID (1u << 15)  /* VALID bit for DATA register reads */
 
-#define UART_IRQ_ID     1u          /* UART 在 PLIC 中的中断源编号 */
+#define UART_IRQ_ID     1u          /* UART interrupt source ID in the PLIC */
 #define PLIC_ENABLE     (*(volatile uint32_t *)(PLIC_BASE + 0x2000u))
 #define PLIC_THRESHOLD  (*(volatile uint32_t *)(PLIC_BASE + 0x200000u))
 #define PLIC_CLAIM      (*(volatile uint32_t *)(PLIC_BASE + 0x200004u))
 
-/* ========= CSR 最小访问 ========= */
+/* ========= Minimal CSR access helpers ========= */
 static inline void csr_set_mstatus_mie(void) {
   __asm__ volatile ("csrs mstatus, %0" :: "r"(0x8u));
 }
@@ -46,7 +46,7 @@ static inline void csr_set_mie_meie(void) {
   __asm__ volatile ("csrs mie, %0" :: "r"(1u << 11));
 }
 
-/* ========= 输出：仍用轮询方式 ========= */
+/* ========= Output (still polling-based) ========= */
 static inline int uart_can_write(void) {
   return ((UART_CTRL >> 16) & 0xFFFFu) != 0u;
 }
@@ -55,28 +55,28 @@ static void uart_putc(uint8_t ch) {
   UART_DATA = (uint32_t)ch;
 }
 
-/* ========= 循环队列（仅在定义 USE_RX_QUEUE 时启用） ========= */
+/* ========= Ring buffer (enabled only when USE_RX_QUEUE is defined) ========= */
 #ifdef USE_RX_QUEUE
 
-#define RX_QUEUE_SIZE  32u                /* 必须是 2 的幂 */
+#define RX_QUEUE_SIZE  32u                /* must be a power of two */
 #define RX_QUEUE_MASK  (RX_QUEUE_SIZE - 1u)
 
 static volatile uint8_t  g_rx_queue[RX_QUEUE_SIZE];
-static volatile uint32_t g_rx_head;  /* 读指针（主程序读取） */
-static volatile uint32_t g_rx_tail;  /* 写指针（ISR 写入） */
+static volatile uint32_t g_rx_head;  /* head (read index, used by main loop) */
+static volatile uint32_t g_rx_tail;  /* tail (write index, used by ISR) */
 
-/* ISR 调用：将一个字符写入队列 */
+/* ISR: push one byte into the queue */
 static void rx_push(uint8_t ch) {
   uint32_t next = (g_rx_tail + 1u) & RX_QUEUE_MASK;
   if (next == g_rx_head) {
-    /* 队列已满，覆盖最旧的字符 */
+    /* Queue full; overwrite the oldest byte */
     g_rx_head = (g_rx_head + 1u) & RX_QUEUE_MASK;
   }
   g_rx_queue[g_rx_tail] = ch;
   g_rx_tail = next;
 }
 
-/* 主程序调用：从队列中取出一个字符，成功返回 1 */
+/* Main: pop one byte; return 1 on success */
 static int rx_pop(uint8_t *ch) {
   if (g_rx_head == g_rx_tail) return 0;
   *ch = g_rx_queue[g_rx_head];
@@ -98,7 +98,7 @@ A complete example of PLIC initialization + external interrupt handling + a ring
 ```c
 #include <stdint.h>
 
-/* ========= 1) 外设与 PLIC 基址（按你的 SoC 填写） ========= */
+/* ========= 1) Peripheral and PLIC base addresses (fill in for your SoC) ========= */
 #define JTAG_UART_BASE    0x60000u
 #define PLIC_BASE         0xc000000u
 #define PLIC_PENDING_WORD (*(volatile uint32_t *)(PLIC_BASE + 0x1000u))
@@ -106,27 +106,27 @@ A complete example of PLIC initialization + external interrupt handling + a ring
 #define PLIC_THRESHOLD    (*(volatile uint32_t *)(PLIC_BASE + 0x200000u))
 #define PLIC_CLAIM        (*(volatile uint32_t *)(PLIC_BASE + 0x200004u))
 
-/* JTAG UART 在 PLIC 中的中断源编号（按你的 SoC/PLIC 分配填写） */
+/* UART interrupt source ID in the PLIC (per your SoC/PLIC wiring) */
 #define UART_IRQ_ID    (1u)
 
 /* ========= 2) JTAG UART MMIO ========= */
 #define UART_DATA (*(volatile uint32_t *)(JTAG_UART_BASE + 0u))
 #define UART_CTRL (*(volatile uint32_t *)(JTAG_UART_BASE + 4u))
 
-#define UART_CTRL_RE     (1u << 0)    /* 读中断使能 */
-#define UART_DATA_VALID  (1u << 15)   /* Data 读取有效位 */
+#define UART_CTRL_RE     (1u << 0)    /* RX interrupt enable */
+#define UART_DATA_VALID  (1u << 15)   /* DATA register read VALID bit */
 
 /* ========= 3) PLIC =========*/
 
 static inline void plic_init_for_uart(void) {
-  /* 使能该中断源 */
+  /* Enable this interrupt source */
   PLIC_ENABLE_WORD |= (1u << (UART_IRQ_ID % 32u));
 
-  /* threshold=0：允许所有优先级>0 的中断进入 */
+  /* threshold=0: allow all interrupts with priority > 0 */
   PLIC_THRESHOLD = 0u;
 }
 
-/* ========= 4) CSR 最小访问 ========= */
+/* ========= 4) Minimal CSR access helpers ========= */
 static inline void csr_write_mtvec(uint32_t v) {
   __asm__ volatile ("csrw mtvec, %0" :: "r"(v));
 }
@@ -135,11 +135,11 @@ static inline void csr_set_mstatus_mie(void) {
   __asm__ volatile ("csrs mstatus, %0" :: "r"(0x8u));
 }
 static inline void csr_set_mie_meie(void) {
-  /* mie.MEIE = 1（机器态外部中断使能） */
+  /* mie.MEIE = 1 (Machine external interrupt enable) */
   __asm__ volatile ("csrs mie, %0" :: "r"(1u << 11));
 }
 
-/* ========= 5) 输出：仍用轮询（规模可控，结构更清晰） ========= */
+/* ========= 5) Output (still polling; keeps structure simple) ========= */
 static inline int uart_can_write(void) {
   /* WSPACE = UART_CTRL[31:16] */
   uint32_t wspace = (UART_CTRL >> 16) & 0xFFFFu;
@@ -151,85 +151,85 @@ static void uart_putc(uint8_t ch) {
   UART_DATA = (uint32_t)ch;
 }
 
-/* ========= 6) ISR 与主程序之间的循环队列通信 ========= */
-/* 循环队列大小（必须是 2 的幂，便于取模优化） */
+/* ========= 6) Ring buffer for ISR ↔ main communication ========= */
+/* Queue size (must be a power of two for fast masking) */
 #define RX_QUEUE_SIZE  32u
 #define RX_QUEUE_MASK  (RX_QUEUE_SIZE - 1u)
 
-/* 循环队列：用于缓冲多个接收到的字符 */
+/* Ring buffer for received bytes */
 static volatile uint8_t  g_rx_queue[RX_QUEUE_SIZE];
-static volatile uint32_t g_rx_head;  /* 读指针（主程序从此处读取） */
-static volatile uint32_t g_rx_tail;  /* 写指针（ISR 从此处写入） */
+static volatile uint32_t g_rx_head;  /* head (read index, used by main loop) */
+static volatile uint32_t g_rx_tail;  /* tail (write index, used by ISR) */
 
-/* ========= 7) 中断处理：用 PLIC claim/complete 获取中断源 ========= */
+/* ========= 7) Interrupt handling via PLIC claim/complete ========= */
 void trap_handler(void *trap_frame, uint32_t mcause) {
-  /* 最高位=1 表示中断；原因号 11 表示机器态外部中断 */
+  /* MSB=1 indicates interrupt; code 11 is Machine external interrupt */
   if ((mcause >> 31) && ((mcause & 0x7FFFFFFFu) == 11u)) {
 
-    uint32_t irq = PLIC_CLAIM;   /* claim：得到中断源编号 */
+    uint32_t irq = PLIC_CLAIM;   /* claim: get interrupt source ID */
 
     if (irq == UART_IRQ_ID) {
-      /* 循环读取 UART 缓冲区中的所有数据，直到缓冲区为空 */
+      /* Read all available UART bytes until RX FIFO is empty */
       for (;;) {
         uint32_t v = UART_DATA;
-        /* 检查数据是否有效 */
+        /* Check whether the read is valid */
         if (!(v & UART_DATA_VALID)) {
-          /* 数据无效，说明缓冲区已空，退出循环 */
+          /* Not valid => FIFO empty; break */
           break;
         }
-        /* 提取字符 */
+        /* Extract byte */
         uint8_t ch = (uint8_t)(v & 0xFFu);
-        /* 计算下一个写位置 */
+        /* Compute next tail position */
         uint32_t next_tail = (g_rx_tail + 1u) & RX_QUEUE_MASK;
-        /* 检查队列是否已满（如果下一个写位置等于读位置，说明队列已满） */
+        /* Check queue full (next_tail == head) */
         if (next_tail == g_rx_head) {
-          /* 队列已满，移动读指针以覆盖最旧的字符 */
+          /* Queue full; advance head to overwrite oldest */
           g_rx_head = (g_rx_head + 1u) & RX_QUEUE_MASK;
         }
-        /* 写入字符（无论队列是否已满都写入） */
+        /* Store byte (after handling full condition) */
         g_rx_queue[g_rx_tail] = ch;
-        g_rx_tail = next_tail;  /* 更新写指针 */
+        g_rx_tail = next_tail;  /* Update tail */
       }
     }
 
-    /* complete：写回同一个编号 */
+    /* complete: write back the same ID */
     PLIC_CLAIM = irq;
     return;
   }
 
-  /* 其他异常/中断：本实验不处理 */
+  /* Other traps/interrupts: not handled in this lab */
 }
 
-/* ========= 8) 初始化：mtvec + CPU 中断 + PLIC + UART ========= */
+/* ========= 8) Init: mtvec + CPU interrupts + PLIC + UART ========= */
 static void uart_enable_rx_irq(void) {
   UART_CTRL = UART_CTRL | UART_CTRL_RE;
 }
 
 static void irq_init(void) {
-  /* PLIC：设置优先级、使能位、阈值 */
+  /* PLIC: set priority/enable/threshold */
   plic_init_for_uart();
-  /* CPU：外部中断 + 全局中断 */
+  /* CPU: enable external interrupts + global MIE */
   csr_set_mie_meie();
   csr_set_mstatus_mie();
-  /* UART：开启读中断 */
+  /* UART: enable RX interrupt */
   uart_enable_rx_irq();
 }
 
 int main(void) {
-  /* 初始化循环队列 */
+  /* Initialize ring buffer */
   g_rx_head = 0u;
   g_rx_tail = 0u;
 
   irq_init();
 
   for (;;) {
-    /* 检查队列是否非空（如果读指针不等于写指针，说明有数据） */
+    /* If head != tail, queue is non-empty */
     if (g_rx_head != g_rx_tail) {
-      /* 从队列中读取一个字符 */
+      /* Read one byte from the queue */
       uint8_t ch = g_rx_queue[g_rx_head];
-      /* 更新读指针 */
+      /* Update head */
       g_rx_head = (g_rx_head + 1u) & RX_QUEUE_MASK;
-      uart_putc(ch); /* 回显 */
+      uart_putc(ch); /* Echo back */
     }
   }
 }
@@ -242,63 +242,63 @@ Minimal startup + a full trap entry which saves context, calls `trap_handler`, t
 <a id="code-intr-start-s"></a>
 
 ```asm
-    # 用户栈
+    # User stack
     .section .bss.stack
     .align  4
 _stack:
     .space  1024
-_stack_top: # 用户栈顶
+_stack_top: # Top of user stack
 
-    # 异常栈：用于中断处理
+    # Trap stack (used during interrupt/trap handling)
     .section .bss.trap_stack
     .align  4
 _trap_stack:
     .space  1024
-_trap_stack_top: # 异常栈顶
+_trap_stack_top: # Top of trap stack
 
-    # 程序入口
+    # Program entry
     .section .text._start
     .globl  _start
 _start:
-    # 设置用户栈顶
+    # Set user stack pointer
     la      sp, _stack_top
-    # 设置 mscratch CSR 为异常栈顶
+    # Set mscratch CSR to top of trap stack
     la      t0, _trap_stack_top
     csrw    mscratch, t0
-    # 设置 mtvec CSR 为异常处理入口
+    # Set mtvec to trap entry
     la      t0, _trap_entry
     csrw    mtvec, t0
-    # 调用 main 函数
+    # Call main
     call    main
-    # 陷入死循环
+    # Spin forever
 _loop:
     j       _loop
 
-    # 异常处理入口
+    # Trap entry
     .section .text.trap
     .align  2
 _trap_entry:
-    # --- 阶段 1: 交换栈顶 (Context Switch Initial) ---
-    # 此时：t0 是用户的，mscratch 是异常栈顶
+    # --- Stage 1: Swap stack pointers (Context Switch Initial) ---
+    # At this point: t0 is the user's, mscratch holds top of trap stack
     csrrw   t0, mscratch, t0   
-    # 此时：t0 是异常栈顶，mscratch 是用户 t0
+    # Now: t0 is top of trap stack, mscratch holds the user's t0
 
-    # 在异常栈上分配 144 字节空间 (36个4字节寄存器位)
+    # Allocate 144 bytes on trap stack (36 × 4-byte slots)
     addi    t0, t0, -144
 
-    # --- 阶段 2: 保存通用寄存器 ---
-    # 先保存 ra 和用户的 t0 (目前在 mscratch 里)
+    # --- Stage 2: Save GPRs ---
+    # Save ra and the user's t0 (currently in mscratch)
     sw      ra, 0(t0)
-    csrr    ra, mscratch       # 将用户 t0 读到 ra 中转
-    sw      ra, 4(t0)          # 保存用户 t0 到偏移 4
+    csrr    ra, mscratch       # Move user's t0 into ra as a temporary
+    sw      ra, 4(t0)          # Save user's t0 at offset 4
 
-    # 保存原始的用户栈指针 (sp)
-    sw      sp, 124(t0)        # 保存用户 sp 到偏移 124
+    # Save original user stack pointer (sp)
+    sw      sp, 124(t0)        # Save user sp at offset 124
 
-    # 此时可以安全地切换 sp 到异常栈了
+    # Now it is safe to switch sp to the trap stack
     mv      sp, t0
 
-    # 保存其余所有通用寄存器
+    # Save the remaining general-purpose registers
     sw      t1, 8(sp)
     sw      t2, 12(sp)
     sw      s0, 16(sp)
@@ -326,7 +326,7 @@ _trap_entry:
     sw      t5, 104(sp)
     sw      t6, 108(sp)
 
-    # --- 阶段 3: 保存 CSR 状态 ---
+    # --- Stage 3: Save CSR state ---
     csrr    t1, mstatus
     sw      t1, 112(sp)
     csrr    t1, mepc
@@ -334,22 +334,22 @@ _trap_entry:
     csrr    t1, mcause
     sw      t1, 120(sp)
     csrr    t1, mtval
-    sw      t1, 128(sp)        # 额外保存 mtval，方便调试
+    sw      t1, 128(sp)        # Also save mtval for easier debugging
 
-    # --- 阶段 4: 调用 C 处理函数 ---
-    # 传递参数：a0 = trap 帧的指针，a1 = mcause
+    # --- Stage 4: Call C handler ---
+    # Pass args: a0 = trap frame pointer, a1 = mcause
     mv      a0, sp
     csrr    a1, mcause
     call    trap_handler
 
-    # --- 阶段 5: 恢复 CSR 状态 ---
+    # --- Stage 5: Restore CSR state ---
     lw      t1, 112(sp)
     csrw    mstatus, t1
     lw      t1, 116(sp)
     csrw    mepc, t1
 
-    # --- 阶段 6: 恢复通用寄存器 ---
-    # 恢复除了 sp 和 t0 以外的所有寄存器
+    # --- Stage 6: Restore GPRs ---
+    # Restore all registers except sp and t0
     lw      ra, 0(sp)
     lw      t1, 8(sp)
     lw      t2, 12(sp)
@@ -378,18 +378,18 @@ _trap_entry:
     lw      t5, 104(sp)
     lw      t6, 108(sp)
 
-    # --- 阶段 7: 安全归还栈并退出 ---
-    # 1. 先把异常栈的原始位置（sp + 144）放回 mscratch，准备下次中断使用
+    # --- Stage 7: Return stacks safely and exit trap ---
+    # 1) Put the original trap stack top (sp + 144) back into mscratch for the next trap
     addi    t0, sp, 144
     csrw    mscratch, t0
 
-    # 2. 从栈帧中读出原始的用户 t0 到 t0 寄存器
+    # 2) Restore the original user t0 from the trap frame into t0
     lw      t0, 4(sp)
 
-    # 3. 最后恢复原始用户栈 sp
+    # 3) Finally restore the original user sp
     lw      sp, 124(sp)
 
-    # 返回被中断的程序
+    # Return to interrupted code
     mret
 ```
 
@@ -434,7 +434,7 @@ riscv64-unknown-elf-gcc -march=rv32i_zicsr -mabi=ilp32 \
 
 #include <stdint.h>
 
-/* ========= VGA 相关定义 ========= */
+/* ========= VGA definitions ========= */
 #define VGA_BUFFER  0x00010000u
 #define VGA_WIDTH   160
 #define VGA_HEIGHT  120
@@ -444,7 +444,7 @@ riscv64-unknown-elf-gcc -march=rv32i_zicsr -mabi=ilp32 \
 #define STRIPE_PIXELS (VGA_WIDTH * STRIPE_ROW)
 #define TOTAL_PIXELS  (VGA_WIDTH * VGA_HEIGHT)
 
-/* ========= DMA 寄存器映射 ========= */
+/* ========= DMA register mapping ========= */
 #define DMA_BASE       0xf0000000u
 #define DMA_SRC_ADDR   (*(volatile uint32_t *)(DMA_BASE + 0x00u))
 #define DMA_DST_ADDR   (*(volatile uint32_t *)(DMA_BASE + 0x04u))
@@ -458,16 +458,16 @@ riscv64-unknown-elf-gcc -march=rv32i_zicsr -mabi=ilp32 \
 #define DMA_STATUS_BUSY    (1u << 0)
 #define DMA_STATUS_DONE    (1u << 1)
 
-/* ========= 颜色表 ========= */
-/* 红、绿、蓝、黄、品红、青、白、黑 */
+/* ========= Color table ========= */
+/* red, green, blue, yellow, magenta, cyan, white, black */
 static const uint32_t COLORS[8] = {
   0xFF0000, 0x00FF00, 0x0000FF, 0xFFFF00,
   0xFF00FF, 0x00FFFF, 0xFFFFFF, 0x000000
 };
 
-/* ========= 辅助函数 ========= */
+/* ========= Helper functions ========= */
 
-/* 绘制一条颜色条纹（STRIPE_ROW 行 × VGA_WIDTH 列） */
+/* Draw one color stripe (STRIPE_ROW rows × VGA_WIDTH columns) */
 static void draw_stripe(uint32_t *buffer, uint32_t color) {
   for (int i = 0; i < STRIPE_ROW; i++) {
     for (int j = 0; j < VGA_WIDTH; j++) {
