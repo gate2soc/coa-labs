@@ -17,7 +17,7 @@ $$Y = \overline{S}\cdot D_0 + S\cdot D_1$$
 
 ![2-to-1 multiplexer](/images/chap02/mux2.png)
 
-In general, if the number of select bits is **n**, the number of input lines is **2^n**, e.g.:
+In general, if the number of select bits is **n**, the number of input lines is $2^n$, e.g.:
 
 | MUX type | Inputs | Select bits |
 |---|---:|---:|
@@ -36,7 +36,7 @@ In CPU design, MUX selection is typically driven by control signals from the con
 
 ## Decoders
 
-A decoder does the “opposite” of a multiplexer: it converts a binary-encoded input into a **one-hot** output (exactly one output line is asserted). A typical decoder has **n** input lines and **2^n** output lines.
+A decoder does the “opposite” of a multiplexer: it converts a binary-encoded input into a **one-hot** output (exactly one output line is asserted). A typical decoder has **n** input lines and $2^n$ output lines.
 
 For a **2-to-4 decoder**:
 
@@ -61,16 +61,16 @@ In a CPU control unit, decoders are an important component that translates **ins
 
 ## Experiment: Multiplexer and Decoder (Gate-Level Implementation)
 
-## Objectives
+### Objectives
 
 - Understand MUX/decoder functionality and how to describe them with truth tables.
 - Use Logisim Evolution to build and verify a **4-to-1 MUX** and a **2-to-4 decoder**.
 
-## Environment
+### Environment
 
 - Simulator: Logisim Evolution
 
-## Principles
+### Principles
 
 A 4-to-1 MUX selects one of D0…D3 based on select bits (S1,S0):
 
@@ -89,11 +89,11 @@ Y_3 &= A_1A_0
 \end{aligned}
 $$
 
-## Requirements
+### Requirements
 
 All circuits in this experiment must be built **only with basic gates** (do not use prebuilt MUX/decoder components).
 
-## Task 1: Build a 4-to-1 MUX using gates
+### Task 1: Build a 4-to-1 MUX using gates
 
 1. **Place inputs/outputs**
    - Place 6 input pins and label them: D0, D1, D2, D3, S0, S1.
@@ -124,7 +124,7 @@ Selection-path wiring reference:
    - Set (S1,S0) to 00, 01, 10, 11 and confirm Y matches D0, D1, D2, D3.
    - Change D0…D3 and repeat.
 
-## Task 2: Build a 2-to-4 decoder using gates
+### Task 2: Build a 2-to-4 decoder using gates
 
 1. **Place inputs/outputs**
    - Place input pins A0 and A1.
@@ -152,12 +152,12 @@ Output-path wiring reference:
    - Test inputs 00, 01, 10, 11.
    - Confirm exactly one of Y0…Y3 is 1 each time.
 
-## Results
+### Results
 
 - 4-to-1 MUX: circuit screenshot + test screenshots proving Y = D0/D1/D2/D3 for S1S0 = 00/01/10/11.
 - 2-to-4 decoder: test screenshots proving one-hot outputs.
 
-## Extension
+### Extension
 
 Implement a NAND function using **only multiplexers**:
 

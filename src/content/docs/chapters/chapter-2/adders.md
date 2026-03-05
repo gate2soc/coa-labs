@@ -50,17 +50,17 @@ Ripple-carry adders are simple and great for teaching, but carry propagation mak
 
 ## Experiment: Hierarchical adder design
 
-## Objectives
+### Objectives
 
 - Build a 1-bit half adder using gates.
 - Build a 1-bit full adder in a modular (hierarchical) way.
 - Build a 4-bit ripple-carry adder from full adders and observe carry propagation.
 
-## Environment
+### Environment
 
 - Simulator: Logisim Evolution
 
-## Task 1: Gate-level 1-bit half adder
+### Task 1: Gate-level 1-bit half adder
 
 1. Place input pins A and B.
 2. Place output pins S and C.
@@ -71,7 +71,7 @@ Ripple-carry adders are simple and great for teaching, but carry propagation mak
 
 Test (A,B) = 00, 01, 10, 11 and confirm (S,C) matches the truth table.
 
-## Task 2: 1-bit full adder (modular)
+### Task 2: 1-bit full adder (modular)
 
 1. Rename the current circuit to **HalfAdder**.
 
@@ -88,7 +88,7 @@ Test (A,B) = 00, 01, 10, 11 and confirm (S,C) matches the truth table.
 
 Test all combinations (A,B,$C_{in}$) from 000 to 111.
 
-## Task 3: 4-bit ripple-carry adder
+### Task 3: 4-bit ripple-carry adder
 
 1. Create a new main circuit named **RippleAdder4**.
 2. Place 4-bit inputs A[3:0], B[3:0] and 1-bit input $C_{in}$.
@@ -106,13 +106,13 @@ Functional checks (example test vectors):
 
 Observe carry propagation using an input that causes a continuous carry chain.
 
-## Results
+### Results
 
 - Half adder: circuit screenshot + truth table test screenshot.
 - Full adder: circuit screenshot + test screenshots for 000…111.
 - RippleAdder4: circuit screenshot + screenshots for at least 3 test cases + a screenshot showing carry propagation.
 
-## Extension
+### Extension
 
 - Package RippleAdder4 and extend it to an 8-bit adder; discuss delay impact of longer carry chains.
 - How would you generate an overflow signal?

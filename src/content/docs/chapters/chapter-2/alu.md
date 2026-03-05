@@ -17,12 +17,12 @@ Design idea:
 
 ## Experiment: Adder/Subtractor
 
-## Objectives
+### Objectives
 
 - Understand the two’s-complement identity: $A-B = A + (-B)$.
 - Learn how to reuse an adder to implement subtraction.
 
-## Principles
+### Principles
 
 In two’s-complement, negation is $-B = \overline{B} + 1$. Therefore:
 
@@ -30,11 +30,11 @@ $$A - B = A + \overline{B} + 1$$
 
 So if we conditionally invert B and conditionally add 1, we can implement subtraction with the same adder used for addition.
 
-## Environment
+### Environment
 
 - Simulator: Logisim Evolution
 
-## Task 1: Controlled inverter (for B)
+### Task 1: Controlled inverter (for B)
 
 Use XOR’s properties:
 
@@ -52,7 +52,7 @@ Let OP=0 mean add, OP=1 mean subtract.
 
 Verify behavior for OP=0 (no inversion) and OP=1 (inversion).
 
-## Task 2: Adder/subtractor
+### Task 2: Adder/subtractor
 
 1. Add an 8-bit input A[7:0].
 2. Rename the previous ~B output to S[7:0] (the final result) and disconnect it from the XOR output.
@@ -77,7 +77,7 @@ Also compare your results with the unified equation:
 
 $$S = A + (B\oplus OP) + OP$$
 
-## Results
+### Results
 
 - Circuit screenshots
 - Test records: at least 6 cases total
@@ -85,7 +85,7 @@ $$S = A + (B\oplus OP) + OP$$
   - ≥3 subtraction cases (include at least one case where A < B)
 - For each case, record OP, A, B, S in both binary and signed decimal (two’s complement).
 
-## Questions
+### Questions
 
 1. Give a unified expression for S (hint: consider the XOR and $C_{in}$ together). Explain why it becomes $A+B$ when OP=0 and $A-B$ when OP=1.
 2. Why should the bit extender use **sign extension**?
@@ -93,7 +93,7 @@ $$S = A + (B\oplus OP) + OP$$
    - For **unsigned** addition, is $C_{out}$ a correct overflow signal? Why?
    - For **signed** two’s-complement add/sub, is $C_{out}$ still reliable? If not, how do you detect signed overflow?
 
-## Extension
+### Extension
 
 Design and add a signed overflow signal. Provide at least two test cases that overflow (e.g., positive overflow and negative overflow), and explain why the signal should assert.
 
@@ -117,7 +117,7 @@ Build an ALU that supports the four operations above. The key structure is:
 2. Arithmetic and bitwise logic can be computed in parallel.
 3. Use a MUX to select the final Y.
 
-## Results
+### Results
 
 - ALU circuit screenshots:
   - show A[7:0], B[7:0], ALUCtrl[1:0], Y[7:0]
@@ -135,12 +135,12 @@ Example record table:
 |---|---|---|---|---:|---|
 | … | … | … | … | … | … |
 
-## Questions
+### Questions
 
 1. Why do ALUs often use “parallel computation + MUX selection”? Discuss hardware reuse, combinational delay, and/or structural clarity.
 2. Is the encoding of ALUCtrl unique? Why/why not?
 
-## Extension
+### Extension
 
 - Add a negative flag N (for two’s complement, it’s the MSB: Y[7]).
 - Add a signed overflow flag V (consider add vs subtract separately).
