@@ -6,6 +6,9 @@ import rehypeKatex from 'rehype-katex';
 
 // https://astro.build/config
 export default defineConfig({
+	// GitHub Pages (project site): https://gate2soc.github.io/coa-labs/
+	site: 'https://gate2soc.github.io',
+	base: '/coa-labs/',
 	server: { host: true },
 	markdown: {
 		remarkPlugins: [remarkMath],
