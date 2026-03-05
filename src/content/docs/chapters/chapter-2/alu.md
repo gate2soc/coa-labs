@@ -48,7 +48,11 @@ Let OP=0 mean add, OP=1 mean subtract.
 3. Place an 8-bit XOR gate.
 4. Use a bit extender to expand OP (1 bit) to 8 bits, then XOR it with B[7:0].
 
+<a id="fig-controlled-inverter"></a>
+
 ![Controlled inverter](/images/chap02/sub-1.png)
+
+*Figure 2.12: Controlled inverter using XOR (OP selects pass-through vs bitwise inversion of B).*
 
 Verify behavior for OP=0 (no inversion) and OP=1 (inversion).
 
@@ -62,7 +66,11 @@ Verify behavior for OP=0 (no inversion) and OP=1 (inversion).
    - adder operand 2 ← (B[7:0] XOR OP)
    - adder $C_{in}$ ← OP
 
+<a id="fig-adder-subtractor"></a>
+
 ![Adder/subtractor](/images/chap02/sub-2.png)
+
+*Figure 2.13: Adder/subtractor circuit (reuse one adder for add and subtract via OP).*
 
 Test examples:
 

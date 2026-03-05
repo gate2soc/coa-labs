@@ -13,6 +13,8 @@ A **half adder** adds two 1-bit numbers without a carry-in.
 
 Truth table:
 
+<a id="tab-half-adder"></a>
+
 | A | B | S | C |
 |---|---|---|---|
 | 0 | 0 | 0 | 0 |
@@ -20,9 +22,15 @@ Truth table:
 | 1 | 0 | 1 | 0 |
 | 1 | 1 | 0 | 1 |
 
+*Table 2.5: Half-adder truth table.*
+
 Symbol:
 
+<a id="fig-half-adder-symbol"></a>
+
 ![Half adder symbol](/images/chap02/bit-adder.png)
+
+*Figure 2.4: Half-adder symbol.*
 
 A half adder cannot directly build multi-bit addition because it lacks a carry-in input, so we need a **full adder**.
 
@@ -37,14 +45,27 @@ $$C_{out} = A\cdot B + A\cdot C_{in} + B\cdot C_{in}$$
 
 Symbols / construction idea:
 
-- Full adder symbol: ![Full adder symbol](/images/chap02/full-adder.png)
-- Built from two half adders + one OR gate: ![Full adder from half adders](/images/chap02/full-adder-comp.png)
+<a id="fig-full-adder-symbol"></a>
+
+![Full adder symbol](/images/chap02/full-adder.png)
+
+*Figure 2.5: Full-adder symbol.*
+
+<a id="fig-full-adder-from-half-adders"></a>
+
+![Full adder from half adders](/images/chap02/full-adder-comp.png)
+
+*Figure 2.6: Constructing a full adder from two half adders and an OR gate.*
 
 ## Ripple-carry adder
 
 Chaining $n$ full adders forms an $n$-bit adder. The carry-out of each bit feeds the next bit’s carry-in. With $C_{in}=0$ at the least significant bit, this is a **ripple-carry adder**.
 
+<a id="fig-ripple-adder"></a>
+
 ![4-bit ripple-carry adder](/images/chap02/ripple-adder.png)
+
+*Figure 2.7: 4-bit ripple-carry adder.*
 
 Ripple-carry adders are simple and great for teaching, but carry propagation makes delay grow roughly linearly with bit width, so modern CPUs use faster adder designs.
 
@@ -67,7 +88,11 @@ Ripple-carry adders are simple and great for teaching, but carry propagation mak
 3. Build $S = A\oplus B$ with one XOR gate.
 4. Build $C = A\cdot B$ with one AND gate.
 
+<a id="fig-half-adder-circuit"></a>
+
 ![1-bit half adder circuit](/images/chap02/adder-1.png)
+
+*Figure 2.8: Gate-level 1-bit half-adder circuit.*
 
 Test (A,B) = 00, 01, 10, 11 and confirm (S,C) matches the truth table.
 
@@ -75,7 +100,11 @@ Test (A,B) = 00, 01, 10, 11 and confirm (S,C) matches the truth table.
 
 1. Rename the current circuit to **HalfAdder**.
 
+<a id="fig-circuit-rename"></a>
+
 ![Rename circuit](/images/chap02/circuit-name.png)
+
+*Figure 2.9: Renaming a circuit in Logisim Evolution.*
 
 2. Create a new circuit named **FullAdder** and set it as the main circuit.
 3. Place inputs A, B, and $C_{in}$; place outputs S and $C_{out}$.
@@ -84,7 +113,11 @@ Test (A,B) = 00, 01, 10, 11 and confirm (S,C) matches the truth table.
    - Second HalfAdder: inputs $S_1$, $C_{in}$; outputs S, $C_2$
 5. Use an OR gate to compute $C_{out} = C_1 + C_2$.
 
+<a id="fig-full-adder-circuit"></a>
+
 ![1-bit full adder circuit](/images/chap02/adder-2.png)
+
+*Figure 2.10: 1-bit full-adder circuit (hierarchical design using HalfAdder subcircuits).*
 
 Test all combinations (A,B,$C_{in}$) from 000 to 111.
 
@@ -96,7 +129,11 @@ Test all combinations (A,B,$C_{in}$) from 000 to 111.
 4. Use splitters to break out bits A0…A3, B0…B3, S0…S3.
 5. Place four FullAdder blocks and chain their carries.
 
+<a id="fig-ripple-adder-circuit"></a>
+
 ![4-bit ripple-carry adder circuit](/images/chap02/adder-3.png)
+
+*Figure 2.11: 4-bit ripple-carry adder circuit (FullAdder chained with carry propagation).*
 
 Functional checks (example test vectors):
 

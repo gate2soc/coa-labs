@@ -55,4 +55,10 @@ After launching Logisim Evolution, the main window consists of:
 - **Properties panel (bottom-left)**: edit properties of the selected component (bit width, direction, label, etc.).
 - **Menu and toolbar**: create/save projects, control simulation, and manage the clock.
 
+See [Figure 1.1](#fig-logisim) for a screenshot of the Logisim Evolution interface.
+
+<a id="fig-logisim"></a>
+
 ![Logisim Evolution UI](/images/chap01/logisim-evolution.png)
+
+*Figure 1.1: Logisim Evolution graphical interface.*

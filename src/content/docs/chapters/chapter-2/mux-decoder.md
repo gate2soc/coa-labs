@@ -15,15 +15,25 @@ So the logic equation is:
 
 $$Y = \overline{S}\cdot D_0 + S\cdot D_1$$
 
+See [Figure 2.1](#fig-mux2).
+
+<a id="fig-mux2"></a>
+
 ![2-to-1 multiplexer](/images/chap02/mux2.png)
 
+*Figure 2.1: 2-to-1 multiplexer symbol.*
+
 In general, if the number of select bits is **n**, the number of input lines is $2^n$, e.g.:
+
+<a id="tab-mux-types"></a>
 
 | MUX type | Inputs | Select bits |
 |---|---:|---:|
 | 2-to-1 | 2 | 1 |
 | 4-to-1 | 4 | 2 |
 | 8-to-1 | 8 | 3 |
+
+*Table 2.1: Relationship between MUX input count and number of select bits.*
 
 Multiplexers are used everywhere in CPU datapaths, such as:
 
@@ -44,12 +54,16 @@ For a **2-to-4 decoder**:
 - outputs: Y0 … Y3
 - only one output is active at a time (here, active-high)
 
+<a id="tab-decoder-2to4"></a>
+
 | A1 | A0 | Y0 | Y1 | Y2 | Y3 |
 |---|---|---|---|---|---|
 | 0 | 0 | 1 | 0 | 0 | 0 |
 | 0 | 1 | 0 | 1 | 0 | 0 |
 | 1 | 0 | 0 | 0 | 1 | 0 |
 | 1 | 1 | 0 | 0 | 0 | 1 |
+
+*Table 2.2: 2-to-4 decoder input/output mapping (active-high one-hot outputs).*
 
 Decoders are commonly used for:
 
@@ -108,9 +122,15 @@ All circuits in this experiment must be built **only with basic gates** (do not 
    - Place one OR gate with **4 inputs**.
    - OR T0…T3 together to produce **Y**.
 
+<a id="fig-mux4-circuit"></a>
+
 ![4-to-1 MUX circuit](/images/chap02/mux-1.png)
 
+*Figure 2.2: Gate-level 4-to-1 multiplexer circuit.*
+
 Selection-path wiring reference:
+
+<a id="tab-mux4-paths"></a>
 
 | Path | Data input | Select condition | Meaning |
 |---|---|---|---|
@@ -118,6 +138,8 @@ Selection-path wiring reference:
 | T1 | D1 | $\overline{S_1}S_0$ | select D1 when S1S0 = 01 |
 | T2 | D2 | $S_1\overline{S_0}$ | select D2 when S1S0 = 10 |
 | T3 | D3 | $S_1S_0$ | select D3 when S1S0 = 11 |
+
+*Table 2.3: AND-gate inputs for each selection path in a gate-level 4-to-1 MUX.*
 
 5. **Verify by truth table**
    - Fix inputs (example): D0=0, D1=1, D2=0, D3=1.
@@ -137,9 +159,15 @@ Selection-path wiring reference:
 4. **Connect outputs**
    - Connect each AND output to Y0…Y3.
 
+<a id="fig-decoder-circuit"></a>
+
 ![2-to-4 decoder circuit](/images/chap02/mux-2.png)
 
+*Figure 2.3: Gate-level 2-to-4 decoder circuit.*
+
 Output-path wiring reference:
+
+<a id="tab-decoder-paths"></a>
 
 | Output | AND inputs | Input combination | Meaning |
 |---|---|---|---|
@@ -147,6 +175,8 @@ Output-path wiring reference:
 | Y1 | $\overline{A_1},A_0$ | A1A0 = 01 | assert Y1 |
 | Y2 | $A_1,\overline{A_0}$ | A1A0 = 10 | assert Y2 |
 | Y3 | $A_1,A_0$ | A1A0 = 11 | assert Y3 |
+
+*Table 2.4: AND-gate inputs for each output line in a gate-level 2-to-4 decoder.*
 
 5. **Verify by truth table**
    - Test inputs 00, 01, 10, 11.

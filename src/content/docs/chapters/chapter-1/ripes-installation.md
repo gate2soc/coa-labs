@@ -33,7 +33,13 @@ On Windows, Ripes requires the **Microsoft Visual C++ runtime**. If you see erro
 
 ## Interface overview
 
+See [Figure 1.2](#fig-ripes) for an overview of the Ripes interface.
+
+<a id="fig-ripes"></a>
+
 ![Ripes UI](/images/chap01/ripes.png)
+
+*Figure 1.2: Ripes graphical interface.*
 
 Ripes consists of multiple views (switchable in the left sidebar), including:
 
