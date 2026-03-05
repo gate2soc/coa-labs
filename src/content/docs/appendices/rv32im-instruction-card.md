@@ -15,12 +15,24 @@ RISC-V instructions are 32 bits and use several encoding formats. R/I/S/B format
 
 <a id="tab-instr-uj-format"></a>
 
-| Format | Immediate field | Notes |
-|---|---|---|
-| U-type | imm[31:12] | imm is placed into the upper 20 bits; low 12 bits are zero |
-| J-type | imm[20|10:1|11|19:12] | immediate bits are permuted in the encoding to reuse fields |
+### U-type (LUI / AUIPC)
 
-*Table A.1: U-type and J-type immediate encoding summary.*
+| Bits | [31:12] | [11:7] | [6:0] |
+|---|---|---|---|
+| Field | imm[31:12] | rd | opcode |
+
+### J-type (JAL)
+
+| Bits | [31] | [30:21] | [20] | [19:12] | [11:7] | [6:0] |
+|---|---|---|---|---|---|---|
+| Field | imm[20] | imm[10:1] | imm[11] | imm[19:12] | rd | opcode |
+
+Notes:
+
+- U-type places the 20-bit immediate into the upper bits of the destination register (effectively `imm << 12`).
+- J-type encodes a signed PC-relative offset. The effective offset has bit 0 = 0 (2-byte alignment), so the immediate is reconstructed and then shifted left by 1.
+
+*Table A.1: U-type and J-type instruction encoding (RV32).*
 
 ## RV32I load/store
 
