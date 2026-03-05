@@ -9,6 +9,7 @@
 
 /* Center tables */
 .sl-markdown-content table {
+  width: auto;
   margin-left: auto;
   margin-right: auto;
 }

@@ -38,12 +38,16 @@ Let inputs be **A** and **B**, and output be **Y**. The logic expression is:
 - A full screenshot of your completed AND-gate circuit.
 - Complete the experiment record table below.
 
+<a id="tab-and-truth"></a>
+
 | A | B | Y |
 |---|---|---|
 | 0 | 0 |   |
 | 0 | 1 |   |
 | 1 | 0 |   |
 | 1 | 1 |   |
+
+*Table 1.1: Two-input AND gate truth table (fill in Y during the experiment).*
 
 ### Questions
 
