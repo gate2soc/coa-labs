@@ -4,10 +4,10 @@ title: "Arithmetic Logic Unit (ALU)"
 
 The ALU is the core combinational block in a CPU datapath. In this manual, you will build an ALU supporting four operations:
 
-- Two’s-complement add: \(A + B\)
-- Two’s-complement subtract: \(A - B\)
-- Bitwise AND: \(A \cdot B\)
-- Bitwise OR: \(A\,|\,B\)
+- Two’s-complement add: $A + B$
+- Two’s-complement subtract: $A - B$
+- Bitwise AND: $A \cdot B$
+- Bitwise OR: $A\,|\,B$
 
 Design idea:
 
@@ -15,31 +15,31 @@ Design idea:
 - Compute arithmetic (add/sub) and logic (and/or) results in parallel.
 - Use a multiplexer to select the final output based on an opcode.
 
-# Experiment: Adder/Subtractor
+## Experiment: Adder/Subtractor
 
-# Objectives
+## Objectives
 
-- Understand the two’s-complement identity: \(A-B = A + (-B)\).
+- Understand the two’s-complement identity: $A-B = A + (-B)$.
 - Learn how to reuse an adder to implement subtraction.
 
-# Principles
+## Principles
 
-In two’s-complement, negation is \(-B = \overline{B} + 1\). Therefore:
+In two’s-complement, negation is $-B = \overline{B} + 1$. Therefore:
 
 $$A - B = A + \overline{B} + 1$$
 
 So if we conditionally invert B and conditionally add 1, we can implement subtraction with the same adder used for addition.
 
-# Environment
+## Environment
 
 - Simulator: Logisim Evolution
 
-# Task 1: Controlled inverter (for B)
+## Task 1: Controlled inverter (for B)
 
 Use XOR’s properties:
 
-- \(B \oplus 0 = B\)
-- \(B \oplus 1 = \overline{B}\)
+- $B \oplus 0 = B$
+- $B \oplus 1 = \overline{B}$
 
 Let OP=0 mean add, OP=1 mean subtract.
 
@@ -52,7 +52,7 @@ Let OP=0 mean add, OP=1 mean subtract.
 
 Verify behavior for OP=0 (no inversion) and OP=1 (inversion).
 
-# Task 2: Adder/subtractor
+## Task 2: Adder/subtractor
 
 1. Add an 8-bit input A[7:0].
 2. Rename the previous ~B output to S[7:0] (the final result) and disconnect it from the XOR output.
@@ -60,7 +60,7 @@ Verify behavior for OP=0 (no inversion) and OP=1 (inversion).
 4. Wire:
    - adder operand 1 ← A[7:0]
    - adder operand 2 ← (B[7:0] XOR OP)
-   - adder \(C_{in}\) ← OP
+   - adder $C_{in}$ ← OP
 
 ![Adder/subtractor](/images/chap02/sub-2.png)
 
@@ -77,7 +77,7 @@ Also compare your results with the unified equation:
 
 $$S = A + (B\oplus OP) + OP$$
 
-# Results
+## Results
 
 - Circuit screenshots
 - Test records: at least 6 cases total
@@ -85,39 +85,39 @@ $$S = A + (B\oplus OP) + OP$$
   - ≥3 subtraction cases (include at least one case where A < B)
 - For each case, record OP, A, B, S in both binary and signed decimal (two’s complement).
 
-# Questions
+## Questions
 
-1. Give a unified expression for S (hint: consider the XOR and \(C_{in}\) together). Explain why it becomes \(A+B\) when OP=0 and \(A-B\) when OP=1.
+1. Give a unified expression for S (hint: consider the XOR and $C_{in}$ together). Explain why it becomes $A+B$ when OP=0 and $A-B$ when OP=1.
 2. Why should the bit extender use **sign extension**?
 3. Can the adder carry-out be used as an overflow indicator?
-   - For **unsigned** addition, is \(C_{out}\) a correct overflow signal? Why?
-   - For **signed** two’s-complement add/sub, is \(C_{out}\) still reliable? If not, how do you detect signed overflow?
+   - For **unsigned** addition, is $C_{out}$ a correct overflow signal? Why?
+   - For **signed** two’s-complement add/sub, is $C_{out}$ still reliable? If not, how do you detect signed overflow?
 
-# Extension
+## Extension
 
 Design and add a signed overflow signal. Provide at least two test cases that overflow (e.g., positive overflow and negative overflow), and explain why the signal should assert.
 
-# Experiment: Arithmetic Logic Unit (ALU)
+## Experiment: Arithmetic Logic Unit (ALU)
 
 Build an ALU that supports the four operations above. The key structure is:
 
 - compute all candidate results in parallel
 - select one result using a MUX controlled by ALUCtrl
 
-# Inputs and outputs
+## Inputs and outputs
 
 - Inputs: A[7:0], B[7:0] (interpreted as signed two’s-complement)
 - Control: ALUCtrl[1:0]
 - Output: Y[7:0]
 - Flag: Z (1 if Y == 0)
 
-# Design hints
+## Design hints
 
 1. Many gates (including MUXes) can be configured to operate on **multi-bit buses** in Logisim Evolution.
 2. Arithmetic and bitwise logic can be computed in parallel.
 3. Use a MUX to select the final Y.
 
-# Results
+## Results
 
 - ALU circuit screenshots:
   - show A[7:0], B[7:0], ALUCtrl[1:0], Y[7:0]
@@ -135,12 +135,12 @@ Example record table:
 |---|---|---|---|---:|---|
 | … | … | … | … | … | … |
 
-# Questions
+## Questions
 
 1. Why do ALUs often use “parallel computation + MUX selection”? Discuss hardware reuse, combinational delay, and/or structural clarity.
 2. Is the encoding of ALUCtrl unique? Why/why not?
 
-# Extension
+## Extension
 
 - Add a negative flag N (for two’s complement, it’s the MSB: Y[7]).
 - Add a signed overflow flag V (consider add vs subtract separately).

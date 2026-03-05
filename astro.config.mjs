@@ -28,6 +28,7 @@ export default defineConfig({
 								{ label: 'Building Your First Circuit (Logisim)', link: '/chapters/chapter-1/logisim-first-circuit/' },
 								{ label: 'Installing and Using Ripes', link: '/chapters/chapter-1/ripes-installation/' },
 								{ label: 'Running Your First Program (Ripes)', link: '/chapters/chapter-1/ripes-first-program/' },
+								{ label: 'Summary', link: '/chapters/chapter-1/summary/' },
 							],
 						},
 						{
@@ -37,6 +38,7 @@ export default defineConfig({
 								{ label: 'Multiplexers and Decoders', link: '/chapters/chapter-2/mux-decoder/' },
 								{ label: 'Adders', link: '/chapters/chapter-2/adders/' },
 								{ label: 'Arithmetic Logic Unit (ALU)', link: '/chapters/chapter-2/alu/' },
+								{ label: 'Summary', link: '/chapters/chapter-2/summary/' },
 							],
 						},
 					],
