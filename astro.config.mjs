@@ -17,6 +17,16 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'Computer Organization & Architecture Lab Manual',
+			head: [
+				{
+					tag: 'script',
+					attrs: {
+						src: 'https://rbt.dang.fan/api/script.js',
+						'data-site-id': '603b2c3c3c7e',
+						defer: true,
+					},
+				},
+			],
 			customCss: ['katex/dist/katex.min.css', '/src/custom.css'],
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/gate2soc/coa-labs/' }],
 			sidebar: [
