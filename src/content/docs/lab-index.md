@@ -2,68 +2,64 @@
 title: "Lab Index"
 ---
 
-This page lists all labs in the order they appear, grouped by chapter.
+This page lists every section labeled with an Experiment heading, in the order they appear.
 
 ## Part 1 - Digital Logic
 
 ### Chapter 1 — Getting Started
 
-- [Installing and Using Logisim Evolution](/chapters/chapter-1/logisim-installation/)
-- [Building Your First Circuit (Logisim)](/chapters/chapter-1/logisim-first-circuit/)
-- [Installing and Using Ripes](/chapters/chapter-1/ripes-installation/)
-- [Running Your First Program (Ripes)](/chapters/chapter-1/ripes-first-program/)
+- [Experiment: Two-Input AND Gate](/chapters/chapter-1/logisim-first-circuit/#experiment-two-input-and-gate)
+- [Experiment: Observing instruction execution in Ripes](/chapters/chapter-1/ripes-first-program/#experiment-observing-instruction-execution-in-ripes)
 
 ### Chapter 2 — Combinational Logic Design
 
-- [Multiplexers and Decoders](/chapters/chapter-2/mux-decoder/)
-- [Adders](/chapters/chapter-2/adders/)
-- [Arithmetic Logic Unit (ALU)](/chapters/chapter-2/alu/)
+- [Experiment: Multiplexer and Decoder (Gate-Level Implementation)](/chapters/chapter-2/mux-decoder/#experiment-multiplexer-and-decoder-gate-level-implementation)
+- [Experiment: Hierarchical adder design](/chapters/chapter-2/adders/#experiment-hierarchical-adder-design)
+- [Experiment: Adder/Subtractor](/chapters/chapter-2/alu/#experiment-addersubtractor)
+- [Experiment: Arithmetic Logic Unit (ALU)](/chapters/chapter-2/alu/#experiment-arithmetic-logic-unit-alu)
 
 ### Chapter 3 — Sequential Logic Design
 
-- [Latches and Flip-Flops](/chapters/chapter-3/latches-flip-flops/)
-- [Register File](/chapters/chapter-3/register-file/)
-- [Finite State Machines (FSM)](/chapters/chapter-3/fsm/)
+- [Experiment: Level-triggered vs edge-triggered behavior](/chapters/chapter-3/latches-flip-flops/#experiment-level-triggered-vs-edge-triggered-behavior)
+- [Experiment: 4-bit synchronous parallel register](/chapters/chapter-3/latches-flip-flops/#experiment-4-bit-synchronous-parallel-register)
+- [Experiment: 4×8 multi-port register file](/chapters/chapter-3/register-file/#experiment-48-multi-port-register-file)
+- [Experiment: Sequence detector (pattern 101)](/chapters/chapter-3/fsm/#experiment-sequence-detector-pattern-101)
+- [Experiment: 3-digit decimal counter (000 → 999)](/chapters/chapter-3/fsm/#experiment-3-digit-decimal-counter-000-999)
 
 ## Part 2 - Processor Architecture
 
-### Chapter 4 — Generating Assembly Programs
-
-- [Toolchain: C to Bare-Metal Assembly](/chapters/chapter-4/toolchain/)
-- [Common Assembly Structure](/chapters/chapter-4/program-structure/)
-
 ### Chapter 5 — Single-Cycle CPU: Design & Implementation
 
-- [Datapath Construction](/chapters/chapter-5/datapath/)
-- [Control Unit Design](/chapters/chapter-5/control-unit/)
-- [System Integration & Testing](/chapters/chapter-5/cpu-integration/)
+- [Experiment: Build the datapath for `ADDI`](/chapters/chapter-5/datapath/#experiment-build-the-datapath-for-addi)
+- [Experiment: Add the datapath for `LW`](/chapters/chapter-5/datapath/#experiment-add-the-datapath-for-lw)
+- [Experiment: Datapath analysis for R-type, S-type, and B-type instructions](/chapters/chapter-5/datapath/#experiment-datapath-analysis-for-r-type-s-type-and-b-type-instructions)
+- [Experiment: Single-cycle control unit](/chapters/chapter-5/control-unit/#experiment-single-cycle-control-unit)
+- [Experiment: Single-cycle CPU integration and validation](/chapters/chapter-5/cpu-integration/#experiment-single-cycle-cpu-integration-and-validation)
 
 ### Chapter 6 — Pipeline Analysis (Ripes)
 
-- [Ripes Processor View](/chapters/chapter-6/ripes-view/)
-- [Five-Stage Pipeline](/chapters/chapter-6/five-stage-pipeline/)
-- [Pipeline Hazards](/chapters/chapter-6/hazards/)
+- [Experiment: Basic execution in a five-stage pipeline](/chapters/chapter-6/five-stage-pipeline/#experiment-basic-execution-in-a-five-stage-pipeline)
+- [Experiment: Data hazard — stalls vs forwarding](/chapters/chapter-6/hazards/#experiment-data-hazard--stalls-vs-forwarding)
+- [Experiment: Control hazard — branch decision and flush](/chapters/chapter-6/hazards/#experiment-control-hazard--branch-decision-and-flush)
 
 ## Part 3 - Memory Systems
 
 ### Chapter 7 — Memory Expansion & Error Checking
 
-- [Bit-Width Expansion (Parallel Chips)](/chapters/chapter-7/bit-width-expansion/)
-- [Capacity Expansion (Address Mapping & CS)](/chapters/chapter-7/address-mapping-chip-select/)
-- [Hamming Code (ECC)](/chapters/chapter-7/hamming-code/)
+- [Experiment: Parallel organization of memory chips](/chapters/chapter-7/bit-width-expansion/#experiment-parallel-organization-of-memory-chips)
+- [Experiment: Address mapping and chip select](/chapters/chapter-7/address-mapping-chip-select/#experiment-address-mapping-and-chip-select)
+- [Experiment: Hamming code detection and correction](/chapters/chapter-7/hamming-code/#experiment-hamming-code-detection-and-correction)
 
 ### Chapter 8 — Cache
 
-- [Mapping Strategies (Basics)](/chapters/chapter-8/mapping-basics/)
-- [Ripes Cache View & Config](/chapters/chapter-8/ripes-cache-view/)
-- [Replacement Policy](/chapters/chapter-8/replacement-policy/)
-- [Write Policy](/chapters/chapter-8/write-policy/)
+- [Experiment: LRU vs Random](/chapters/chapter-8/replacement-policy/#experiment-lru-vs-random)
+- [Experiment: Cache mapping behavior](/chapters/chapter-8/ripes-cache-view/#experiment-cache-mapping-behavior)
+- [Experiment: Dirty bit and write-back observation](/chapters/chapter-8/write-policy/#experiment-dirty-bit-and-write-back-observation)
 
 ## Part 4 - I/O Systems
 
 ### Chapter 9 — I/O Interfaces
 
-- [Memory-Mapped I/O (MMIO)](/chapters/chapter-9/mmio/)
-- [Polling I/O](/chapters/chapter-9/polling/)
-- [Interrupt-Driven I/O](/chapters/chapter-9/interrupts/)
-- [DMA](/chapters/chapter-9/dma/)
+- [Experiment: Polling-based I/O](/chapters/chapter-9/polling/#experiment-polling-based-io)
+- [Experiment: Interrupt-driven UART I/O](/chapters/chapter-9/interrupts/#experiment-interrupt-driven-uart-io)
+- [Experiment: DMA transfer to VGA (polling)](/chapters/chapter-9/dma/#experiment-dma-transfer-to-vga-polling)
