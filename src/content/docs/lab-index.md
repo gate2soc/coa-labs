@@ -2,7 +2,7 @@
 title: "Lab Index"
 ---
 
-This page lists every section labeled with an Experiment heading, in the order they appear.
+This index collects all sections titled Experiment, in the order they appear.
 
 ## Part 1 - Digital Logic
 
