@@ -22,7 +22,10 @@ export default defineConfig({
 			sidebar: [
 				{
 					label: 'Front Matter',
-					items: [{ label: 'Preface', link: '/preface/' }],
+					items: [
+						{ label: 'Preface', link: '/preface/' },
+						{ label: 'Lab Index', link: '/lab-index/' },
+					],
 				},
 				{
 					label: 'Part 1 - Digital Logic',
