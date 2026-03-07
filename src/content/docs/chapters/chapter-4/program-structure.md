@@ -65,6 +65,11 @@ collatz:
 
 *Code 4.8: Example assembly (`collatz.s`).*
 
+### Questions
+
+- Swapping the order of the `andi a3, a4, 1` and `addi a5, a5, 1` instructions would not change the program behavior. Why does GCC choose to compute `a3` earlier?
+- In the C source, the odd case is written after the even case. Why does the assembly place the `.L3` block (odd path) before the even path?
+
 ## Function calls and recursion
 
 In assembly there is no “function” as a special language construct—any block of instructions can be called as a function if it follows the calling convention.
@@ -129,3 +134,10 @@ fib:
 ```
 
 *Code 4.10: Example assembly (`fib.s`).*
+
+### Questions
+
+- When computing `fib(4)`, how many times is `fib` called in total? What is the difference between the minimum and maximum values of `sp` (how many bytes does the deepest stack consume)?
+- If you want to run this program in Ripes, what changes are needed? Is it sufficient to simply replace `jr ra` with a self-loop?
+- Why is saving `s1` delayed until later (after the base-case check), instead of saving it immediately after saving `ra` and `s0`? What benefit does this bring?
+- Try compiling with `-O2`. Does the generated code change significantly? If so, why is it better?

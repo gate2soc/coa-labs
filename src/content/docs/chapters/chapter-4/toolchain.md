@@ -105,6 +105,16 @@ aplusb:
 
 *Code 4.3: Ripes-friendly assembly (`aplusb_ripes.s`).*
 
+### Questions
+
+- In Code 4.1, why does the loop that accumulates `sum` not appear in the generated assembly?
+- `li` and `ret` are pseudo-instructions. What real instructions do they expand to?
+- Why does GCC use both `li` and `addi` to materialize the constant, instead of using a single instruction?
+- Suppose you run Code 4.2 in Ripes with inputs `a = 1` and `b = 29`.
+  - Before execution starts, how should you initialize the relevant registers?
+  - After the function finishes, from which register should you read the result?
+  - If you click Run, will the simulation stop at the end of the function? Why?
+
 ## Using Clang to generate bare-metal assembly
 
 Clang/LLVM supports many targets. For simple bare-metal assembly emission, you can often avoid installing a full target sysroot.
@@ -179,6 +189,14 @@ sum:
 ```
 
 *Code 4.6: Ripes-friendly assembly (`sum_ripes.s`).*
+
+### Questions
+
+Assume you run Code 4.6 in Ripes. Think about the following:
+
+- In the assembly, `mv` is a pseudo-instruction. What real instruction does it expand to?
+- What parts of the C source correspond to basic blocks `.LBB0_2` and `.LBB0_3`?
+- Assume memory starting at address `0x0` stores 20 signed 32-bit integers. If you want to sum the last 10 integers, how should you initialize the input registers? After the function finishes, what are the values of the registers used by the code?
 
 ## Using Compiler Explorer (godbolt.org)
 
